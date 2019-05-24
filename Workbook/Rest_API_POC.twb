@@ -96,7 +96,16 @@
             <connection authentication='RDBMS' class='oracle' one-time-sql='' port='1521' schema='HR' server='localhost' service='' sslmode='' username='hr' />
           </named-connection>
         </named-connections>
-        <relation connection='oracle.0pnmt9r1jxva1w13vs1wa127o7os' name='COUNTRIES' table='[HR].[COUNTRIES]' type='table' />
+        <relation join='inner' type='join'>
+          <clause type='join'>
+            <expression op='='>
+              <expression op='[COUNTRIES].[COUNTRY_ID]' />
+              <expression op='[DUPLICATE].[EMPNO]' />
+            </expression>
+          </clause>
+          <relation connection='oracle.0pnmt9r1jxva1w13vs1wa127o7os' name='COUNTRIES' table='[HR].[COUNTRIES]' type='table' />
+          <relation connection='oracle.0pnmt9r1jxva1w13vs1wa127o7os' name='DUPLICATE' table='[HR].[DUPLICATE]' type='table' />
+        </relation>
         <metadata-records>
           <metadata-record class='column'>
             <remote-name>COUNTRY_ID</remote-name>
@@ -148,11 +157,49 @@
               <attribute datatype='string' name='DebugRemoteType'>&quot;SQLT_NUM&quot;</attribute>
             </attributes>
           </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>EMPNO</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[EMPNO]</local-name>
+            <parent-name>[DUPLICATE]</parent-name>
+            <remote-alias>EMPNO</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>0</scale>
+            <width>10</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='1' flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQLT_CHR{charset=873,charform=1}&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ENAME</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[ENAME]</local-name>
+            <parent-name>[DUPLICATE]</parent-name>
+            <remote-alias>ENAME</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>0</scale>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='1' flag='0' name='binary' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQLT_CHR{charset=873,charform=1}&quot;</attribute>
+            </attributes>
+          </metadata-record>
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
       <column caption='Country Id' datatype='string' name='[COUNTRY_ID]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
       <column caption='Country Name' datatype='string' name='[COUNTRY_NAME]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+      <column caption='Empno' datatype='string' name='[EMPNO]' role='dimension' type='nominal' />
+      <column caption='Ename' datatype='string' name='[ENAME]' role='dimension' type='nominal' />
       <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
         <calculation class='tableau' formula='1' />
       </column>
